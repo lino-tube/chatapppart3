@@ -190,6 +190,7 @@ public class Main {
                 System.out.println("1) Send Messages");
                 System.out.println("2) Show recently sent messages");
                 System.out.println("3) Quit");
+                System.out.println("4) Stored Messages");
                 
                 //prompting the user to enter their option(1, 2 or 3)
                 System.out.println("Enter your choice: ");
@@ -294,8 +295,12 @@ public class Main {
                         //stops the menu loop
                         running = false;
                         break;
+                    case 4: 
+                        storedMessagesMenu();
+                        break;
                     default:
                         
+        System.out.println("b) Display longest message");
                         //error message for invalid menu option
                         System.out.println("Inavlid option, please choose either 1, 2, or 3. ");
                 }
@@ -304,5 +309,16 @@ public class Main {
             //If the user's login failed, we tell them to try again
             System.out.println("Login was unsuccessful, please try again.");
         }
+    }
+    
+    public static void storedMessagesMenu() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("a) Display all stored messages");
+        System.out.println("b) Display longest message");
+        System.out.println("c) Search by message ID");
+        System.out.println("d) Search by recipient");
+        System.out.println("e) Delete by message hash");
+        System.out.println("f) Display full report");
     }
 }

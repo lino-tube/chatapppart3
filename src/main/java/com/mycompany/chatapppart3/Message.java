@@ -131,7 +131,6 @@ public class Message {
                 storeMessage();
                 System.out.println("Mesage saved to messages.json.");
                 return"Message successfully stored";
-                
             //Invalid slection option    
             default:
                 return"\nInvalid option. Please choose option 1, 2, or 3";    
