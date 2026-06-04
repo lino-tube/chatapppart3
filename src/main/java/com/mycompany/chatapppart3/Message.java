@@ -8,6 +8,8 @@ package com.mycompany.chatapppart3;
  *
  * @author Linothando
  */
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Random;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -222,6 +224,33 @@ public class Message {
             }    
          }
         return "Hash not found."; 
+    }
+    
+    //JSON library used: org.json
+    //Source: https://mvnrepository.com/artifact/org.json/json 
+    public static void loadStoredMessages(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("messages.json"))) {
+           String line;
+           
+           while((line = reader.readLine()) != null) {
+               JSONObject obj = new JSONObject(line);
+               storedMessages.add(obj.getString("messageText"));
+           }
+        } catch (IOException e) {
+            System.out.println("No stored messages found.");
+        }
+    }
+    
+    public static String printMessages() {
+        StringBuilder report = new StringBuilder();
+        report.append("=== Message Report ===\n"); 
+        for (int i = 0; i < sentMessages.size(); i++){
+            report.append("---------------------------\n");
+            report.append("Hash: ").append(messageHashes.get(i)).append("\n");
+            report.append("Recipient: ").append(recipientList.get(i)).append("\n");
+            report.append("Message: ").append(sentMessages.get(i)).append("\n");
+        }
+        return report.toString(); 
     }
 }
 
