@@ -175,8 +175,27 @@ public class Message {
             //Display an error message if storing the message fails
             System.out.println("Error storing message: " + e.getMessage());
         }
-   } 
-
+    } 
+    
+    public String displayLongestMessage(){
+        String longest = "";
+        for(String msg : storedMessages){
+            if(msg.length() > longest.length()){
+                longest = msg;
+            }
+        }
+        
+        return longest;
+    }
+    
+    public String searchByMessageID(String id) {
+        for(int i = 0; i < messageIDs.size(); i++){
+            if(messageIDs.get(i).equals(id)){
+                return sentMessages.get(i);
+            }
+        }
+        return "Message not found.";
+    }
 }
 
 
