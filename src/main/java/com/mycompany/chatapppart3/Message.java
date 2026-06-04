@@ -23,6 +23,7 @@ public class Message {
     private static List<String> storedMessages = new ArrayList<>();
     private static List<String> messageHashes = new ArrayList<>();
     private static List<String> messageIDs = new ArrayList<>();
+    private static List<String> recipientList = new ArrayList<>();
     
     //These vaariables will used to store the details of each message
     private String messageID;
@@ -195,6 +196,32 @@ public class Message {
             }
         }
         return "Message not found.";
+    }
+    
+    public String searchByRecipient(String recipient) {
+        StringBuilder results = new StringBuilder();
+        for(int i = 0; i < recipientList.size(); i++){
+            if (recipientList.get(i).equals(recipient)){
+                results.append(sentMessages.get(i));
+            }
+        }
+        return results.toString();
+    }
+    
+    public String deleteByHash(String hash) {
+        for(int i = 0; i < messageHashes.size(); i++){
+            if(messageHashes.get(i).equals(hash)){
+                String deleteMessage = sentMessages.get(i);
+                
+                messageHashes.remove(i);
+                messageIDs.remove(i);
+                recipientList.remove(i);
+                sentMessages.remove(i);
+                
+                return "Message: " + deleteMessage + "has been successfully deleted.";
+            }    
+         }
+        return "Hash not found."; 
     }
 }
 
