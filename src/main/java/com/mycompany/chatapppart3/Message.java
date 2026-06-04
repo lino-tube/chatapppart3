@@ -12,9 +12,17 @@ import java.util.Random;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Message {
+    
+    private static List<String> sentMessages = new ArrayList<>();
+    private static List<String> disregardedMessages = new ArrayList<>();
+    private static List<String> storedMessages = new ArrayList<>();
+    private static List<String> messageHashes = new ArrayList<>();
+    private static List<String> messageIDs = new ArrayList<>();
     
     //These vaariables will used to store the details of each message
     private String messageID;
