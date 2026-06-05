@@ -204,7 +204,7 @@ public class Message {
         StringBuilder results = new StringBuilder();
         for(int i = 0; i < recipientList.size(); i++){
             if (recipientList.get(i).equals(recipient)){
-                results.append(sentMessages.get(i));
+                results.append(sentMessages.get(i)).append("\n");
             }
         }
         return results.toString();
@@ -220,7 +220,7 @@ public class Message {
                 recipientList.remove(i);
                 sentMessages.remove(i);
                 
-                return "Message: " + deleteMessage + "has been successfully deleted.";
+                return "Message: " + deleteMessage + " successfully deleted.";
             }    
          }
         return "Hash not found."; 
@@ -261,6 +261,30 @@ public class Message {
         }
         
         return result.toString();
+    }
+    
+    public static List<String> getSentMessages(){
+        return sentMessages;
+    }
+    
+    public static List<String> getDisregardedMessages() {
+        return disregardedMessages;
+    } 
+    
+    public static List<String> getStoredMessages(){
+        return storedMessages;
+    }
+    
+    public static List<String> getMessageHashes() {
+        return messageHashes;
+    }
+    
+    public static List<String> getMessageIDs() {
+        return messageIDs;
+    }
+    
+    public static List<String> getRecipientList() {
+        return recipientList;
     }
 }
 
