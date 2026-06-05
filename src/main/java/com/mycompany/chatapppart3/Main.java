@@ -161,6 +161,8 @@ public class Main {
         } else {
             //if the user has logged in successfully, we welcome them to the chatapp
             System.out.println("\nWelcome to ChatApp.");
+            
+            Message.loadStoredMessages();
         }
         
         /*
@@ -285,7 +287,7 @@ public class Main {
                         break;
                      case 2: 
                         //displays that this feature is coming soon
-                        System.out.println("Comming Soon.");
+                        System.out.println("Coming Soon.");
                         break;
                     case 3:  
                         
@@ -314,11 +316,53 @@ public class Main {
     public static void storedMessagesMenu() {
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("a) Display all stored messages");
-        System.out.println("b) Display longest message");
-        System.out.println("c) Search by message ID");
-        System.out.println("d) Search by recipient");
-        System.out.println("e) Delete by message hash");
-        System.out.println("f) Display full report");
+        char choice;
+        
+        do{
+            System.out.println("\n=== Stored Message Menu ===");
+            System.out.println("a) Display the sender and recipient of all stored messages.");
+            System.out.println("b) Display the longest stored message.");
+            System.out.println("c) Search for a message ID and display the corresponding recipient and message.");
+            System.out.println("d) Search for all the messages stored for a particular recipient.");
+            System.out.println("e) Delete a message using the message hash.");
+            System.out.println("f) Display a report that lists the full details of all the stored messages.");
+            System.out.println("g) Go back to the main menu");
+            
+            choice = scanner.nextLine().toLowerCase().charAt(0);
+            switch(choice) {
+                case 'a':
+                    System.out.println(Message.displayStoredMessages());
+                    break;
+                case 'b':
+                    System.out.println(Message.displayLongestMessage());
+                    break;
+                case 'c':
+                    System.out.print("Enter message ID: ");
+                    String id = scanner.nextLine();
+                    
+                    System.out.println(Message.searchByMessageID(id));
+                    break;
+                case 'd':
+                    System.out.print("Enter recipient number: ");
+                    String recipient = scanner.nextLine();
+                    
+                    System.out.println(Message.searchByRecipient(recipient));
+                    break;
+                case 'e':
+                    System.out.print("Enter message hash: ");
+                    String hash = scanner.nextLine();
+                    
+                    System.out.println(Message.deleteByHash(hash));
+                    break;
+                case 'f':
+                    System.out.println(Message.printMessages());
+                    break;
+                case 'g': 
+                    System.out.println("Return to the main menu");
+                    break;
+                default:
+                    System.out.println("Invaild choice");
+            }
+        }while (choice != 'g');    
     }
 }

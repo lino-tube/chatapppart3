@@ -112,7 +112,7 @@ public class Message {
     public String sentMessage() {
         
         Scanner input = new Scanner(System.in);
-        System.out.println("\nWhat would yoou like to do with your message?");
+        System.out.println("\nWhat would you like to do with your message?");
         System.out.println("1) Send Message");
         System.out.println("2) Disregard Message");
         System.out.println("3) Store Message to send later");
@@ -180,7 +180,7 @@ public class Message {
         }
     } 
     
-    public String displayLongestMessage(){
+    public static String displayLongestMessage(){
         String longest = "";
         for(String msg : storedMessages){
             if(msg.length() > longest.length()){
@@ -191,7 +191,7 @@ public class Message {
         return longest;
     }
     
-    public String searchByMessageID(String id) {
+    public static String searchByMessageID(String id) {
         for(int i = 0; i < messageIDs.size(); i++){
             if(messageIDs.get(i).equals(id)){
                 return sentMessages.get(i);
@@ -200,7 +200,7 @@ public class Message {
         return "Message not found.";
     }
     
-    public String searchByRecipient(String recipient) {
+    public static String searchByRecipient(String recipient) {
         StringBuilder results = new StringBuilder();
         for(int i = 0; i < recipientList.size(); i++){
             if (recipientList.get(i).equals(recipient)){
@@ -210,7 +210,7 @@ public class Message {
         return results.toString();
     }
     
-    public String deleteByHash(String hash) {
+    public static String deleteByHash(String hash) {
         for(int i = 0; i < messageHashes.size(); i++){
             if(messageHashes.get(i).equals(hash)){
                 String deleteMessage = sentMessages.get(i);
@@ -251,6 +251,16 @@ public class Message {
             report.append("Message: ").append(sentMessages.get(i)).append("\n");
         }
         return report.toString(); 
+    }
+    
+    public static String displayStoredMessages(){
+        StringBuilder result = new StringBuilder();
+        
+        for(String msg : storedMessages) {
+            result.append(msg).append("\n");
+        }
+        
+        return result.toString();
     }
 }
 
