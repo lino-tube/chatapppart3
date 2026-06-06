@@ -286,6 +286,87 @@ public class MessageTest {
         assertEquals("Message successfully stored.", result);
     }
     
+    @Test
+    public void testSentMessagesArray_correctlyPopulated() {
+        Message.getSentMessages().clear();
+        
+        Message.getSentMessages().add("Did you get the cake?");
+        Message.getSentMessages().add("It is dinner time!");
+        
+        assertTrue(Message.getSentMessages().add("Did you get the cake?"));
+        assertTrue(Message.getSentMessages().add("It is dinner time!"));
+    }
+    
+    @Test
+    public void testDisplayLongestMessage_returnsCorrectMessage() {
+        Message.getStoredMessages().clear();
+        
+        Message.getStoredMessages().add("Ok, I am leaving without you.");
+        Message.getStoredMessages().add("Where are you? You are late! I have asked you to be on time.");
+        
+        String expected = "Where are you? You are late! I have asked you to be on time.";
+        assertEquals(expected, Message.displayLongestMessage());
+    }
+    
+    @Test
+    public void testSearchByMessageID_returnsCorrectMessage() {
+        Message.getMessageIDs().clear();
+        Message.getSentMessages().clear();
+        
+        Message.getMessageIDs().add("0838884567");
+        Message.getSentMessages().add("It is dinner time!");
+        
+        assertEquals("It is dinner time!", Message.searchByMessageID("0838884567"));
+    }
+    
+    @Test
+    public void testSearchByRecipient_returnsAllMatchingMessages() {
+        Message.getRecipientList().clear();
+        Message.getSentMessages().clear();
+        
+        Message.getRecipientList().add("+27838884567");
+        Message.getSentMessages().add("Where are you? You are late! I have asked you to be on time.");
+        
+        Message.getRecipientList().add("+27838884567");
+        Message.getSentMessages().add("Ok, I am leaving without you.");
+        
+        String result = Message.searchByRecipient("+27838884567");
+        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));
+        
+        assertTrue(result.contains("Ok, I am leaving without you."));
+    }
+    
+    @Test
+    public void testDeletebyHash_removesCorrectMessage() {
+        Message.getMessageHashes().clear();
+        Message.getSentMessages().clear();
+        
+        Message.getMessageHashes().add("00:2:WHERETIME");
+        Message.getSentMessages().add("Where are you? You are late! I have asked you to be on time");
+        
+        String expected = "Message: " + "Where are you? You are late! I have asked you to be on time" + " successfully deleted.";
+        
+        assertEquals(expected, Message.deleteByHash("00:2:WHERETIME"));
+    }
+    
+    @Test
+    public void testDisplayReport_containsRequiredFields() {
+        Message.getMessageHashes().clear();
+        Message.getRecipientList().clear();
+        Message.getSentMessages().clear();
+        
+        Message.getMessageHashes().add("00:1:DIDCAKE");
+        Message.getRecipientList().add("+27834557896");
+        Message.getSentMessages().add("Did you get the cake?");
+        
+        String report = Message.printMessages();
+        
+        assertTrue(report.contains("00:1:DIDCAKE"));
+        assertTrue(report.contains("+27834557896"));
+        assertTrue(report.contains("Did you get the cake?"));
+        
+    }
+    
 }
 
 

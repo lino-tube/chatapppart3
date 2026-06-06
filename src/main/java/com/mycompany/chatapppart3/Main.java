@@ -11,8 +11,6 @@ package com.mycompany.chatapppart3;
 
 //imports the Scanner class so we can take input from the user
 import java.util.Scanner;
-//imports the ArrayLIst class so we can store multiple sent messages
-import java.util.ArrayList;
 
 /**
  *
@@ -161,6 +159,8 @@ public class Main {
         } else {
             //if the user has logged in successfully, we welcome them to the chatapp
             System.out.println("\nWelcome to ChatApp.");
+            
+            Message.loadStoredMessages();
         }
         
         /*
@@ -172,11 +172,6 @@ public class Main {
             
             //controls the menu loop
             boolean running = true;
-            /*
-             ArrayList used to store all sent messages
-             so they can be displayed later
-             */
-            ArrayList<String> sentMessages = new ArrayList<>();
             
             /*
              *main menu loop
@@ -190,14 +185,13 @@ public class Main {
                 System.out.println("1) Send Messages");
                 System.out.println("2) Show recently sent messages");
                 System.out.println("3) Quit");
+                System.out.println("4) Stored Messages");
                 
                 //prompting the user to enter their option(1, 2 or 3)
                 System.out.println("Enter your choice: ");
                 //reads the user input 
                 int choice = input.nextInt();
                 input.nextLine();
-                //Message object declaration
-                Message msg = null;
                 
                 //switch statement used for menu options
                 switch(choice) {
@@ -213,11 +207,8 @@ public class Main {
                         
                             System.out.println("\n=== Message " + messageNumber + " of " + numMessages + " ===");
                             
-                             /*
-                             temporary Message object created
-                             to generate a unique message ID
-                             */
-                            msg = new Message(messageNumber, "", "");
+                             //creates Message object with full details
+                            Message msg = new Message(messageNumber, "", "");
                             
                             //generate message ID
                             String messageID = msg.generateMessageID();
@@ -228,18 +219,19 @@ public class Main {
                             System.out.println("Enter recipient cell phone number(e.g. +27678907890): ");
                             String recipientCell = input.nextLine();
                             
-                            //create Message object with recipient number
+                              //creates Message object with full details
                             msg = new Message(messageNumber, recipientCell, "");
                             
                             //validates recipient cellphone number
                             if((recipientCell.startsWith("+27") && recipientCell.length() <=12)){
                                 System.out.println(msg.checkRecipientCell());
                             }
+                            
                             //we are prompting the user to type the message they want to send
                             System.out.println("Enter your message(max 250 characters): ");
                             String messageText = input.nextLine();
                             
-                            //creates Message object with full details
+                             //creates Message object with full details
                             msg = new Message(messageNumber, recipientCell, messageText);
                             
                             //validates message length
@@ -262,40 +254,29 @@ public class Main {
                             String Result = msg.sentMessage();
                             System.out.println(Result);
                                 
-                            /*
-                             *store the message details inside the ArrayList
-                             *so all sent messages can be displayed later
-                             */
-                            sentMessages.add(msg.printMessage());
                         }
                         //displays total messages sent
                         System.out.println("\n=====================================================");
                         System.out.println("Total messages sent: " + Message.returnTotalMessages());
                         
                         //displays all sent messages
-                        System.out.println("\n=== ALL SENT MESSAGES ===");
                         System.out.println("-------------------------------------");
-                        
-                        //loops through the ArrayList and displays all messages
-                        for(String message : sentMessages) {
-                            System.out.println(message);
-                            System.out.println("-------------------------");
-                        }
+                        System.out.println(Message.printMessages());
                         break;
                      case 2: 
                         //displays that this feature is coming soon
-                        System.out.println("Comming Soon.");
+                        System.out.println("Coming Soon.");
                         break;
                     case 3:  
-                        
                         //the user now quits
                         System.out.println("Thank you for using ChatApp. Goodbye!");
-                        
                         //stops the menu loop
                         running = false;
                         break;
+                    case 4: 
+                        storedMessagesMenu();
+                        break;
                     default:
-                        
                         //error message for invalid menu option
                         System.out.println("Inavlid option, please choose either 1, 2, or 3. ");
                 }
@@ -304,5 +285,58 @@ public class Main {
             //If the user's login failed, we tell them to try again
             System.out.println("Login was unsuccessful, please try again.");
         }
+    }
+    
+    public static void storedMessagesMenu() {
+        Scanner scanner = new Scanner(System.in);
+        
+        char choice;
+        
+        do{
+            System.out.println("\n=== Stored Message Menu ===");
+            System.out.println("a) Display the sender and recipient of all stored messages.");
+            System.out.println("b) Display the longest stored message.");
+            System.out.println("c) Search for a message ID and display the corresponding recipient and message.");
+            System.out.println("d) Search for all the messages stored for a particular recipient.");
+            System.out.println("e) Delete a message using the message hash.");
+            System.out.println("f) Display a report that lists the full details of all the sent messages.");
+            System.out.println("g) Go back to the main menu");
+            
+            choice = scanner.nextLine().toLowerCase().charAt(0);
+            switch(choice) {
+                case 'a':
+                    System.out.println(Message.displayStoredMessages());
+                    break;
+                case 'b':
+                    System.out.println(Message.displayLongestMessage());
+                    break;
+                case 'c':
+                    System.out.print("Enter message ID: ");
+                    String id = scanner.nextLine();
+                    
+                    System.out.println(Message.searchByMessageID(id));
+                    break;
+                case 'd':
+                    System.out.print("Enter recipient number: ");
+                    String recipient = scanner.nextLine();
+                    
+                    System.out.println(Message.searchByRecipient(recipient));
+                    break;
+                case 'e':
+                    System.out.print("Enter message hash: ");
+                    String hash = scanner.nextLine();
+                    
+                    System.out.println(Message.deleteByHash(hash));
+                    break;
+                case 'f':
+                    System.out.println(Message.printMessages());
+                    break;
+                case 'g': 
+                    System.out.println("Return to the main menu");
+                    break;
+                default:
+                    System.out.println("Invaild choice");
+            }
+        }while (choice != 'g');    
     }
 }

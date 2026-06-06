@@ -8,13 +8,24 @@ package com.mycompany.chatapppart3;
  *
  * @author Linothando
  */
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Random;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Message {
+    
+    private static List<String> sentMessages = new ArrayList<>();
+    private static List<String> disregardedMessages = new ArrayList<>();
+    private static List<String> storedMessages = new ArrayList<>();
+    private static List<String> messageHashes = new ArrayList<>();
+    private static List<String> messageIDs = new ArrayList<>();
+    private static List<String> recipientList = new ArrayList<>();
     
     //These vaariables will used to store the details of each message
     private String messageID;
@@ -101,7 +112,7 @@ public class Message {
     public String sentMessage() {
         
         Scanner input = new Scanner(System.in);
-        System.out.println("\nWhat would yoou like to do with your message?");
+        System.out.println("\nWhat would you like to do with your message?");
         System.out.println("1) Send Message");
         System.out.println("2) Disregard Message");
         System.out.println("3) Store Message to send later");
@@ -111,19 +122,32 @@ public class Message {
         switch(option) {
             //Messages gets sent successfully 
             case 1:
+                sentMessages.add(messageText);
+                messageHashes.add(messageHash);
+                messageIDs.add(messageID);
+                recipientList.add(recipientCell);
+                
                 totalMessages++;
                 return"Message successfully sent";
                 
             //message gets disregared    
             case 2:
+                disregardedMessages.add(messageText);
+                
                 return"Press 0 to delete the message";
                 
             //message gets stored in a JSON file
             case 3:
                 storeMessage();
+                
+                storedMessages.add(messageText);
+                
+                messageHashes.add(messageHash);
+                messageIDs.add(messageID);
+                recipientList.add(recipientCell);
+                
                 System.out.println("Mesage saved to messages.json.");
                 return"Message successfully stored";
-                
             //Invalid slection option    
             default:
                 return"\nInvalid option. Please choose option 1, 2, or 3";    
@@ -168,8 +192,115 @@ public class Message {
             //Display an error message if storing the message fails
             System.out.println("Error storing message: " + e.getMessage());
         }
-   } 
-
+    } 
+    
+    public static String displayLongestMessage(){
+        String longest = "";
+        for(String msg : storedMessages){
+            if(msg.length() > longest.length()){
+                longest = msg;
+            }
+        }
+        
+        return longest;
+    }
+    
+    public static String searchByMessageID(String id) {
+        for(int i = 0; i < messageIDs.size(); i++){
+            if(messageIDs.get(i).equals(id)){
+                return sentMessages.get(i);
+            }
+        }
+        return "Message not found.";
+    }
+    
+    public static String searchByRecipient(String recipient) {
+        StringBuilder results = new StringBuilder();
+        for(int i = 0; i < recipientList.size(); i++){
+            if (recipientList.get(i).equals(recipient)){
+                results.append(sentMessages.get(i)).append("\n");
+            }
+        }
+        return results.toString();
+    }
+    
+    public static String deleteByHash(String hash) {
+        for(int i = 0; i < messageHashes.size(); i++){
+            if(messageHashes.get(i).equals(hash)){
+                String deleteMessage = sentMessages.get(i);
+                
+                messageHashes.remove(i);
+                messageIDs.remove(i);
+                recipientList.remove(i);
+                sentMessages.remove(i);
+                
+                return "Message: " + deleteMessage + " successfully deleted.";
+            }    
+         }
+        return "Hash not found."; 
+    }
+    
+    //JSON library used: org.json
+    //Source: https://mvnrepository.com/artifact/org.json/json 
+    public static void loadStoredMessages(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("messages.json"))) {
+           String line;
+           
+           while((line = reader.readLine()) != null) {
+               JSONObject obj = new JSONObject(line);
+               storedMessages.add(obj.getString("messageText"));
+           }
+        } catch (IOException e) {
+            System.out.println("No stored messages found.");
+        }
+    }
+    
+    public static String printMessages() {
+        StringBuilder report = new StringBuilder();
+        
+        report.append("=== Message Report ===\n"); 
+        for (int i = 0; i < sentMessages.size(); i++){
+            report.append("---------------------------\n");
+            report.append("Hash: ").append(messageHashes.get(i)).append("\n");
+            report.append("Recipient: ").append(recipientList.get(i)).append("\n");
+            report.append("Message: ").append(sentMessages.get(i)).append("\n");
+        }
+        return report.toString(); 
+    }
+    
+    public static String displayStoredMessages(){
+        StringBuilder result = new StringBuilder();
+        
+        for(String msg : storedMessages) {
+            result.append(msg).append("\n");
+        }
+        
+        return result.toString();
+    }
+    
+    public static List<String> getSentMessages(){
+        return sentMessages;
+    }
+    
+    public static List<String> getDisregardedMessages() {
+        return disregardedMessages;
+    } 
+    
+    public static List<String> getStoredMessages(){
+        return storedMessages;
+    }
+    
+    public static List<String> getMessageHashes() {
+        return messageHashes;
+    }
+    
+    public static List<String> getMessageIDs() {
+        return messageIDs;
+    }
+    
+    public static List<String> getRecipientList() {
+        return recipientList;
+    }
 }
 
 
