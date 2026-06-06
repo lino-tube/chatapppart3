@@ -122,16 +122,30 @@ public class Message {
         switch(option) {
             //Messages gets sent successfully 
             case 1:
+                sentMessages.add(messageText);
+                messageHashes.add(messageHash);
+                messageIDs.add(messageID);
+                recipientList.add(recipientCell);
+                
                 totalMessages++;
                 return"Message successfully sent";
                 
             //message gets disregared    
             case 2:
+                disregardedMessages.add(messageText);
+                
                 return"Press 0 to delete the message";
                 
             //message gets stored in a JSON file
             case 3:
                 storeMessage();
+                
+                storedMessages.add(messageText);
+                
+                messageHashes.add(messageHash);
+                messageIDs.add(messageID);
+                recipientList.add(recipientCell);
+                
                 System.out.println("Mesage saved to messages.json.");
                 return"Message successfully stored";
             //Invalid slection option    
@@ -243,6 +257,7 @@ public class Message {
     
     public static String printMessages() {
         StringBuilder report = new StringBuilder();
+        
         report.append("=== Message Report ===\n"); 
         for (int i = 0; i < sentMessages.size(); i++){
             report.append("---------------------------\n");
