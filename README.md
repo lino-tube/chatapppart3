@@ -77,16 +77,16 @@
       Recipient Cell Number, and 
       Message Text
 
- ###Stored Messages Menu
+ ### Stored Messages Menu
    A submenu was added to allow users to work with stored messages. The menu provides options such as display stored messages, search for messages, delete messages, and generate message reports.
 
  ### Display Stored Messages 
    Stored messages can be loaded from the messages.json file and displayed to the user through the stored messages menu.
 
- ###Search by Message ID
+ ### Search by Message ID
    Users can enter a message ID to search for whichever message they would like to see. The application will then use that message ID to search for the corresponding message and display its information to the user.
 
- ###Search by Recipient 
+ ### Search by Recipient 
    Users can enter a recipient's cell phone number to search for messages stored under that number. The aaplication will use that recipient's cell phone number to find and display all messages associated with that recipient.
 
  ### Delete Message by Hash
