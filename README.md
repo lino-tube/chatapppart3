@@ -18,21 +18,21 @@
 ---
 
 ## Features
- Username Validation
+ ### Username Validation
  We are checking if the username meets the required rules.
  The username must:
   contain an underscore (_) and 
   must not be longer than five characters.
  If the username does not meet the requirements, an error message gets displayed.
  
-## Password Validation
+### Password Validation
  We are checking if the password meets the complexity requirements.
  The password must at least be 8 characters,
    contain a capital letter,
    a number, and a special character.
  If the password is incorrectly entered, an error message gets displayed.
 
-## Cell Phone Number Validation
+### Cell Phone Number Validation
  We are checking if the cell phone number is correctly formatted.
  The number must:
   start with an international code +27, and 
