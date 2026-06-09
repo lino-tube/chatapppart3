@@ -7,6 +7,7 @@ package com.mycompany.chatapppart3;
 
 //imports JUnit 4 annotations and assertion methods for testing
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.After;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

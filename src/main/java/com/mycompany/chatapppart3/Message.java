@@ -196,6 +196,9 @@ public class Message {
     
     public static String displayLongestMessage(){
         String longest = "";
+        
+        System.out.println("=== Longest Message ===\n");
+        
         for(String msg : storedMessages){
             if(msg.length() > longest.length()){
                 longest = msg;
@@ -271,10 +274,14 @@ public class Message {
     public static String displayStoredMessages(){
         StringBuilder result = new StringBuilder();
         
-        for(String msg : storedMessages) {
-            result.append(msg).append("\n");
+        result.append("=== Stored Messages ===\n");
+        
+        for(int i = 0; i < storedMessages.size(); i++) {
+            result.append("------------------------------\n");
+            result.append("Message ").append(i + 1).append(": ").append(storedMessages.get(i)).append("\n");
         }
         
+        result.append("------------------------------\n");
         return result.toString();
     }
     
