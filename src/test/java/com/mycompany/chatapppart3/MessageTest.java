@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Student
  */
+
 //test class used to test methods from the Message class
 public class MessageTest {
     
