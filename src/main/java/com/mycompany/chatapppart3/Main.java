@@ -114,7 +114,7 @@ public class Main {
         login.registerUser(username, password, phoneNumber);
         
         //registration message is being shown
-        System.out.println("Registration successful. Welcome, " + firstName + lastName + "!");
+        System.out.println("Registration successful. Welcome, " + firstName +  lastName + "!");
         
         //user login process for the chat app 
         System.out.println("\n=== USER LOGIN ===");
@@ -339,6 +339,7 @@ public class Main {
                     break;
                 case 'b':
                     //Displays the longest stored message
+                    System.out.println("=== Longest Message ===\n");
                     System.out.println(Message.displayLongestMessage());
                     break;
                 case 'c':

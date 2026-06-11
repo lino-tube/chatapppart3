@@ -36,7 +36,7 @@ public class Message {
     private static List<String> messageIDs = new ArrayList<>();
     private static List<String> recipientList = new ArrayList<>();
     
-    //These vaariables will used to store the details of each message
+    //These variables will used to store the details of each message
     private String messageID;
     private int messageNumber;
     private String recipientCell;
@@ -206,8 +206,6 @@ public class Message {
     //Finds and returns the longest message stored in the program
     public static String displayLongestMessage(){
         String longest = "";
-        
-        System.out.println("=== Longest Message ===\n");
         
         for(String msg : storedMessages){
             if(msg.length() > longest.length()){
