@@ -8,14 +8,23 @@ package com.mycompany.chatapppart3;
  *
  * @author Linothando
  */
+//Reads data from the messages.json file
 import java.io.BufferedReader;
+//opens and reads message.json file
 import java.io.FileReader;
+//generates random message IDs
 import java.util.Random;
+//Creates and reads JSON Objects
 import org.json.JSONObject;
+//Handles file input and output exceptions
 import java.io.IOException;
+//Writes message data into the message.json file
 import java.io.FileWriter;
+//Stores multiple messages flexibly
 import java.util.ArrayList;
+//creates lists of message information
 import java.util.List;
+//Accepts user input
 import java.util.Scanner;
 
 public class Message {
@@ -194,6 +203,7 @@ public class Message {
         }
     } 
     
+    //Finds and returns the longest message stored in the program
     public static String displayLongestMessage(){
         String longest = "";
         
@@ -208,6 +218,7 @@ public class Message {
         return longest;
     }
     
+    //Searches for message using its message ID
     public static String searchByMessageID(String id) {
         for(int i = 0; i < messageIDs.size(); i++){
             if(messageIDs.get(i).equals(id)){
@@ -217,6 +228,7 @@ public class Message {
         return "Message not found.";
     }
     
+    //Displays all messages that belongs to a specific recipient
     public static String searchByRecipient(String recipient) {
         StringBuilder results = new StringBuilder();
         for(int i = 0; i < recipientList.size(); i++){
@@ -227,11 +239,13 @@ public class Message {
         return results.toString();
     }
     
+    //Deletes message by is message Hash
     public static String deleteByHash(String hash) {
         for(int i = 0; i < messageHashes.size(); i++){
             if(messageHashes.get(i).equals(hash)){
+                //Stores messages before removing them so they can be displayed in the confirmation message
                 String deleteMessage = sentMessages.get(i);
-                
+                //Removes all relted message information from the ArrayList
                 messageHashes.remove(i);
                 messageIDs.remove(i);
                 recipientList.remove(i);
@@ -258,6 +272,7 @@ public class Message {
         }
     }
     
+    //Generates a report conataining all message details 
     public static String printMessages() {
         StringBuilder report = new StringBuilder();
         
@@ -271,6 +286,7 @@ public class Message {
         return report.toString(); 
     }
     
+    //Displays all messages that have been stored and viewed later on
     public static String displayStoredMessages(){
         StringBuilder result = new StringBuilder();
         
@@ -285,26 +301,32 @@ public class Message {
         return result.toString();
     }
     
+    //Returns the list of successfully sent messages
     public static List<String> getSentMessages(){
         return sentMessages;
     }
     
+    //Returns the list of disregared messages
     public static List<String> getDisregardedMessages() {
         return disregardedMessages;
     } 
     
+    //Returns the list of all stored messages
     public static List<String> getStoredMessages(){
         return storedMessages;
     }
     
+    //Returns all generated message Hashes
     public static List<String> getMessageHashes() {
         return messageHashes;
     }
     
+    //Returns all generated message IDs
     public static List<String> getMessageIDs() {
         return messageIDs;
     }
     
+    //Returns all recipient cell phone numbers
     public static List<String> getRecipientList() {
         return recipientList;
     }

@@ -162,8 +162,10 @@ public class Main {
             //if the user has logged in successfully, we welcome them to the chatapp
             System.out.println("\nWelcome to ChatApp.");
             
+            //Loads previously stored messages from the JSOn file
             Message.loadStoredMessages();
             
+            //Displays the number of storeed messages loaded from the file
             System.out.println(Message.getStoredMessages().size() + " stored message(s) loaded from file.");
         }
         
@@ -203,6 +205,7 @@ public class Main {
                 
                 //switch statement used for menu options
                 switch(choice) {
+                    //Allows the user to create and send messages
                     case 1:
                         //we asking the user to enter how mny messages they wish to send.
                         System.out.println("\nHow many messages would you like to send?");
@@ -239,7 +242,7 @@ public class Main {
                             System.out.println("Enter your message(max 250 characters): ");
                             String messageText = input.nextLine();
                             
-                             //creates Message object with full details
+                            //creates Message object with full details
                             msg = new Message(messageNumber, recipientCell, messageText);
                             
                             //validates message length
@@ -294,6 +297,7 @@ public class Main {
                         running = false;
                         break;
                     case 4: 
+                        //opens the stored messages' submenu
                         storedMessagesMenu();
                         break;
                     default:
@@ -307,11 +311,12 @@ public class Main {
         }
     }
     
+    //Displays the stored messages' submenu
     public static void storedMessagesMenu() {
         Scanner scanner = new Scanner(System.in);
         
         char choice;
-        
+        //Keeps displaying the submenu until the user returns to the main menu
         do{
             System.out.println("\n==============================");
             System.out.println("     Stored Messages Menu");
@@ -329,33 +334,40 @@ public class Main {
             
             switch(choice) {
                 case 'a':
+                    //Displays all stored messages
                     System.out.println(Message.displayStoredMessages());
                     break;
                 case 'b':
+                    //Displays the longest stored message
                     System.out.println(Message.displayLongestMessage());
                     break;
                 case 'c':
+                    //Searches for message using its message ID
                     System.out.print("Enter message ID: ");
                     String id = scanner.nextLine();
                     
                     System.out.println(Message.searchByMessageID(id));
                     break;
                 case 'd':
+                    //Searches for messages belonging to a specific recipient
                     System.out.print("Enter recipient number: ");
                     String recipient = scanner.nextLine();
                     
                     System.out.println(Message.searchByRecipient(recipient));
                     break;
                 case 'e':
+                    //Deletes all messages using its hash
                     System.out.print("Enter message hash: ");
                     String hash = scanner.nextLine();
                     
                     System.out.println(Message.deleteByHash(hash));
                     break;
                 case 'f':
+                    //Displays a report of all sent messages
                     System.out.println(Message.printMessages());
                     break;
                 case 'g': 
+                    //returns the user to the main menu
                     System.out.println("Return to the main menu");
                     break;
                 default:

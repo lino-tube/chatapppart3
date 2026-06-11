@@ -288,8 +288,13 @@ public class MessageTest {
         assertEquals("Message successfully stored.", result);
     }
     
+    /*
+     tests if the sentMessages ArrayList
+     stores messages correctly
+     */
     @Test
     public void testSentMessagesArray_correctlyPopulated() {
+        //clears exisiting test data
         Message.getSentMessages().clear();
         
         Message.getSentMessages().add("Did you get the cake?");
@@ -299,6 +304,10 @@ public class MessageTest {
         assertTrue(Message.getSentMessages().add("It is dinner time!"));
     }
     
+    /*
+     tests if the longest stored message
+     is correctly returned
+     */
     @Test
     public void testDisplayLongestMessage_returnsCorrectMessage() {
         Message.getStoredMessages().clear();
@@ -310,6 +319,10 @@ public class MessageTest {
         assertEquals(expected, Message.displayLongestMessage());
     }
     
+    /*
+     tests if searching by message ID
+     returns the correct message
+     */
     @Test
     public void testSearchByMessageID_returnsCorrectMessage() {
         Message.getMessageIDs().clear();
@@ -321,6 +334,10 @@ public class MessageTest {
         assertEquals("It is dinner time!", Message.searchByMessageID("0838884567"));
     }
     
+    /*
+     tests if searching by the recipient's cell phone number
+     returns all matching messages
+     */
     @Test
     public void testSearchByRecipient_returnsAllMatchingMessages() {
         Message.getRecipientList().clear();
@@ -338,6 +355,10 @@ public class MessageTest {
         assertTrue(result.contains("Ok, I am leaving without you."));
     }
     
+    /*
+     tests if deleting a message by its hash will 
+     removes the correct message
+     */
     @Test
     public void testDeletebyHash_removesCorrectMessage() {
         Message.getMessageHashes().clear();
@@ -351,6 +372,10 @@ public class MessageTest {
         assertEquals(expected, Message.deleteByHash("00:2:WHERETIME"));
     }
     
+    /*
+     tests if the generated report 
+     conatins all the required message details
+    */
     @Test
     public void testDisplayReport_containsRequiredFields() {
         Message.getMessageHashes().clear();
