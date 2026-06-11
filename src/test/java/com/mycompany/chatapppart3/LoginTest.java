@@ -131,7 +131,7 @@ public class LoginTest {
          Login login = new Login();
          String result = login.registerUser("kyl_1", "Ch&&sec@ke99!", "+27838968976");
          assertEquals(
-                 "User registered successfully.",
+                 "User registered successfully",
                  result
          );
     }
